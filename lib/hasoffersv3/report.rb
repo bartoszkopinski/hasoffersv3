@@ -3,8 +3,8 @@ module HasOffersV3
     Target = 'Report'
 
     class << self
-      def getConversions(params = {})
-        get_request(Target, 'getConversions', params)
+      def getConversions(params = {}, &block)
+        get_request(Target, 'getConversions', params, &block)
       end
     end
   end
