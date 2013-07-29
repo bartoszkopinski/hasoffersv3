@@ -1,3 +1,5 @@
-module HasOffersV3
+require 'hasoffersv3/base'
+require 'hasoffersv3/response'
 
-end
+require 'hasoffersv3/conversion'
+require 'hasoffersv3/report'

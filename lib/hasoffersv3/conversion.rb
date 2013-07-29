@@ -4,7 +4,6 @@ module HasOffersV3
 
     class << self
       def findAll(params = {})
-        params = build_data(data)
         get_request(Target, 'findAll', params)
       end
     end
