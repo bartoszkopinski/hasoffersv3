@@ -35,7 +35,7 @@ module HasOffersV3
             response = make_request(:get, target, method, params.merge(page: page))
             block.call response
             page += 1
-          end until page > response.page_info['page_count']
+          end until page > (response.page_info['page_count'] || 1)
         end
       end
 
