@@ -13,7 +13,7 @@ module HasOffersV3
       end
 
       def initialize_credentials
-        config_file = ENV['HAS_OFFERS_CONFIG_FILE'] || "config/has_offers.yml"
+        config_file = ENV['HAS_OFFERS_CONFIG_FILE'] || Rails.root.join("config/has_offers.yml").to_s
         if File.exists?(config_file)
           config = YAML::load(IO.read(config_file))
           @@default_params = {
