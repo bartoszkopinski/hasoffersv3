@@ -1,5 +1,15 @@
-require 'hasoffersv3/base'
-require 'hasoffersv3/response'
+%w!base response conversion report configuration!.each do |file|
+  require "hasoffersv3/#{file}"
+end
 
-require 'hasoffersv3/conversion'
-require 'hasoffersv3/report'
+module HasOffersV3
+  class << self
+    def configuration
+      @configuration ||= Configuration.new
+    end
+
+    def configure &block
+      block.call configuration
+    end
+  end
+end

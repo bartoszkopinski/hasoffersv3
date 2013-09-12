@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.name          = "hasoffersv3"
   s.version       = HasOffersV3::VERSION
   s.platform      = Gem::Platform::RUBY
-  s.authors       = ["Maximilian Seifert"]
-  s.email         = ["ms@hitfox.com"]
+  s.authors       = ["Maximilian Seifert", "Timo Rößner"]
+  s.email         = ["ms@hitfox.com", "tr@hitfox.com"]
   s.summary       = %q{REST Client for the HasOffers API, version 3.}
   s.description   = %q{REST Client for the HasOffers API, version 3.}
 
@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'oj' # For JSON parsing
+  s.add_development_dependency 'rspec'
 end

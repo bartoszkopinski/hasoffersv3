@@ -1,31 +1,6 @@
 module HasOffersV3
   class Base
-    @@base_uri        = 'http://api.hasoffers.com/v3'
-    @@default_params  = nil
-
     class << self
-      def base_uri=(uri)
-        @@base_uri = uri
-      end
-
-      def base_uri
-        @@base_uri
-      end
-
-      def initialize_credentials
-        config_file = ENV['HAS_OFFERS_CONFIG_FILE'] || Rails.root.join("config/has_offers.yml").to_s
-        if File.exists?(config_file)
-          config = YAML::load(IO.read(config_file))
-          @@default_params = {
-            'NetworkId'     => config['network_id'],
-            'NetworkToken'  => config['api_key']
-          }
-        else
-          @@default_params = {}
-          puts "Missing config/has_offers.yml file!"
-        end
-      end
-
       def get_request(target, method, params, &block)
         if block.nil?
           make_request(:get, target, method, params)
@@ -70,12 +45,12 @@ module HasOffersV3
       def make_request(http_method, target, method, params)
         data = build_request_params(method, params)
         if http_method == :post
-          uri               = URI.parse("#{base_uri}/#{target}.json")
+          uri               = URI.parse("#{HasOffersV3.configuration.base_uri}/#{target}.json")
           http              = new_http(uri)
           raw_request       = Net::HTTP::Post.new(uri.request_uri)
           raw_request.body  = query_string data
         else # assume get
-          uri               = URI.parse("#{base_uri}/#{target}.json?#{query_string(data)}")
+          uri               = URI.parse("#{HasOffersV3.configuration.base_uri}/#{target}.json?#{query_string(data)}")
           http              = new_http(uri)
           raw_request       = Net::HTTP::Get.new(uri.request_uri)
         end
@@ -85,9 +60,8 @@ module HasOffersV3
       end
 
       def build_request_params(method, params)
-        initialize_credentials unless @@default_params
         params['Method'] = method
-        params.merge @@default_params
+        params.merge NetworkId: HasOffersV3.configuration.network_id, NetworkToken: HasOffersV3.configuration.api_key
       end
     end
   end
