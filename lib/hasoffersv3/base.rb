@@ -14,8 +14,17 @@ module HasOffersV3
         end
       end
 
-      def post_request(target, method, params)
-        make_request(:post, target, method, params)
+      def post_request(target, method, params, &block)
+        if block.nil?
+          make_request(:post, target, method, params)
+        else
+          page = 1
+          begin
+            response = make_request(:post, target, method, params.merge(page: page))
+            block.call response
+            page += 1
+          end until page > (response.page_info['page_count'] || 1)
+        end
       end
 
       def requires!(hash, required_params)
