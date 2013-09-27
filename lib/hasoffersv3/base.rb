@@ -1,5 +1,10 @@
+require 'net/http' if RUBY_VERSION < '2'
+require 'webmock'
+
 module HasOffersV3
   class Base
+    extend ::WebMock::API
+
     class << self
       def get_request(target, method, params, &block)
         if block.nil?
@@ -63,9 +68,17 @@ module HasOffersV3
           http              = new_http(uri)
           raw_request       = Net::HTTP::Get.new(uri.request_uri)
         end
-        http_response = http.request raw_request
+        http_response = execute_request(http, raw_request)
 
         Response.new(http_response)
+      end
+
+      def execute_request(net_http)
+        if defined?(Rails) && Rails.env.test?
+          stub_request(:any, net_http.address).with Net::HTTPResponse.new('1.1', '200', 'NONE')
+        else
+          net_http.request raw_request
+        end
       end
 
       def build_request_params(method, params)
