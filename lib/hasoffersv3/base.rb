@@ -1,9 +1,11 @@
 require 'net/http' if RUBY_VERSION < '2'
-require 'webmock'
 
 module HasOffersV3
   class Base
-    extend ::WebMock::API
+    if defined?(Rails) && Rails.env.test?
+      require 'webmock' unless defined?(WebMock)
+      extend ::WebMock::API
+    end
 
     class << self
       def get_request(target, method, params, &block)
