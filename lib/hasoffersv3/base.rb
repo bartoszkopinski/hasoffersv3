@@ -75,7 +75,7 @@ module HasOffersV3
         Response.new(http_response)
       end
 
-      def execute_request(net_http)
+      def execute_request(net_http, raw_request)
         if defined?(Rails) && Rails.env.test?
           stub_request(:any, net_http.address).with Net::HTTPResponse.new('1.1', '200', 'NONE')
         else
