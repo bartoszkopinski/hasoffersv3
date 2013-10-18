@@ -2,11 +2,6 @@ require 'net/http' if RUBY_VERSION < '2'
 
 module HasOffersV3
   class Base
-    if defined?(Rails) && Rails.env.test?
-      require 'webmock' unless defined?(WebMock)
-      extend ::WebMock::API
-    end
-
     class << self
       def get_request(target, method, params, &block)
         if block.nil?
@@ -76,8 +71,10 @@ module HasOffersV3
       end
 
       def execute_request(net_http, raw_request)
-        if defined?(Rails) && Rails.env.test?
-          stub_request(:any, net_http.address).with Net::HTTPResponse.new('1.1', '200', 'NONE')
+        if defined?(Rails) && Rails.env.test? && !stubbed_reqest?
+          response = Net::HTTPOK.new '1.1', '200', 'OK'
+          response.stub(:body) { '{"response":{"status":1,"data":[]}}' }
+          response
         else
           net_http.request raw_request
         end
@@ -86,6 +83,13 @@ module HasOffersV3
       def build_request_params(method, params)
         params['Method'] = method
         params.merge NetworkId: HasOffersV3.configuration.network_id, NetworkToken: HasOffersV3.configuration.api_key
+      end
+
+      # Check if there was stub for request
+      def stubbed_reqest?
+        defined?(WebMock) &&
+          (request_signature = WebMock::RequestSignature.new(:any, /.*api\.hasoffers\.com.*/)) &&
+          !!WebMock.registered_request?(request_signature)
       end
     end
   end
