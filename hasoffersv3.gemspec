@@ -17,7 +17,8 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
-  s.add_dependency 'oj' # For JSON parsing
+  s.add_dependency 'oj' # for faster JSON parsing
+  s.add_dependency 'activesupport' # for to_param method
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'rspec'
 end

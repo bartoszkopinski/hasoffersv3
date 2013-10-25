@@ -1,4 +1,5 @@
 require 'net/http' if RUBY_VERSION < '2'
+require 'active_support/core_ext/object/to_query'
 
 module HasOffersV3
   class Base
@@ -71,25 +72,12 @@ module HasOffersV3
       end
 
       def execute_request(net_http, raw_request)
-        if defined?(Rails) && Rails.env.test? && !stubbed_reqest?
-          response = Net::HTTPOK.new '1.1', '200', 'OK'
-          response.stub(:body) { '{"response":{"status":1,"data":[]}}' }
-          response
-        else
-          net_http.request raw_request
-        end
+        net_http.request raw_request
       end
 
       def build_request_params(method, params)
         params['Method'] = method
         params.merge NetworkId: HasOffersV3.configuration.network_id, NetworkToken: HasOffersV3.configuration.api_key
-      end
-
-      # Check if there was stub for request
-      def stubbed_reqest?
-        defined?(WebMock) &&
-          (request_signature = WebMock::RequestSignature.new(:any, /.*api\.hasoffers\.com.*/)) &&
-          !!WebMock.registered_request?(request_signature)
       end
     end
   end

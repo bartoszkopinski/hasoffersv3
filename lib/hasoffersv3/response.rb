@@ -1,9 +1,11 @@
+require 'oj'
+
 module HasOffersV3
   class Response
     attr_reader :body, :http_status_code, :http_message, :http_headers
 
     def initialize(response)
-      @body             = JSON.parse(response.body)
+      @body             = Oj.load(response.body.to_s)
       @http_status_code = response.code
       @http_message     = response.message
       @http_headers     = response.to_hash

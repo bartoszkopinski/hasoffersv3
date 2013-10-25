@@ -13,3 +13,8 @@ module HasOffersV3
     end
   end
 end
+
+if ENV['RAILS_ENV'] == 'test' ||  ENV['RACK_ENV'] == 'test' || ENV['TEST']
+  require 'hasoffersv3/testing'
+  HasOffersV3::Testing.enable!
+end
