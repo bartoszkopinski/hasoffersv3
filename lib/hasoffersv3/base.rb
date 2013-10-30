@@ -4,26 +4,26 @@ require 'active_support/core_ext/object/to_query'
 module HasOffersV3
   class Base
     class << self
-      def get_request(target, method, params, &block)
+      def get_request(method, params, &block)
         if block.nil?
-          make_request(:get, target, method, params)
+          make_request(:get, method, params)
         else
           page = 1
           begin
-            response = make_request(:get, target, method, params.merge(page: page))
+            response = make_request(:get, method, params.merge(page: page))
             block.call response
             page += 1
           end until page > (response.page_info['page_count'] || 1)
         end
       end
 
-      def post_request(target, method, params, &block)
+      def post_request(method, params, &block)
         if block.nil?
-          make_request(:post, target, method, params)
+          make_request(:post, method, params)
         else
           page = 1
           begin
-            response = make_request(:post, target, method, params.merge(page: page))
+            response = make_request(:post, method, params.merge(page: page))
             block.call response
             page += 1
           end until page > (response.page_info['page_count'] || 1)
@@ -40,7 +40,15 @@ module HasOffersV3
         end
       end
 
+      def target
+        name.split('::').last
+      end
+
     private
+
+      def deprecation(from, to)
+        warn "[DEPRECATION] `#{ name }.#{ from }` is deprecated. Please use `#{ name }.#{ to }` instead."
+      end
 
       def new_http(uri)
         http = Net::HTTP.new(uri.host, uri.port)
@@ -54,7 +62,7 @@ module HasOffersV3
         data_hash.to_param.gsub(/\[\]\[/,'[')
       end
 
-      def make_request(http_method, target, method, params)
+      def make_request(http_method, method, params)
         data = build_request_params(method, params)
         if http_method == :post
           uri               = URI.parse("#{HasOffersV3.configuration.base_uri}/#{target}.json")

@@ -1,10 +1,13 @@
 module HasOffersV3
   class Conversion < Base
-    Target = 'Conversion'
-
     class << self
       def findAll(params = {})
-        get_request(Target, 'findAll', params)
+        deprecation 'findAll', 'find_all'
+        find_all params
+      end
+
+      def find_all(params = {})
+        get_request 'findAll', params
       end
     end
   end

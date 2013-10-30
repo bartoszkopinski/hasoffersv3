@@ -1,4 +1,4 @@
-%w!base affiliate response conversion report configuration advertiser_user!.each do |file|
+%w!base affiliate response conversion report configuration advertiser advertiser_user offer!.each do |file|
   require "hasoffersv3/#{file}"
 end
 

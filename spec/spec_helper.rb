@@ -17,4 +17,33 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+  config.before :each do
+    WebMock.disable_net_connect!
+  end
+end
+
+def api_url(object)
+  "#{ HasOffersV3.configuration.base_uri }/#{ object }.json"
+end
+
+def body
+  { 'response' => { 'status' => 1, 'data' => [] } }
+end
+
+def default_return
+  { status: 200, body: Oj.dump(body) }
+end
+
+def data
+  body['response']['data']
+end
+
+def stub_call(method = :post, to_return = nil)
+  stub_request(method, url).to_return to_return || default_return
+end
+
+def validate_call(response)
+  expect(response).to be_success
+  expect(response.data).to be == data
 end
