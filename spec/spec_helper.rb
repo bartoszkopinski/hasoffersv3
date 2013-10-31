@@ -20,6 +20,7 @@ RSpec.configure do |config|
 
   config.before :each do
     WebMock.disable_net_connect!
+    HasOffersV3::Testing.disable!
   end
 end
 

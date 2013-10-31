@@ -39,7 +39,7 @@ module HasOffersV3
     class << self
       private
 
-      alias_method :execute_request_real, :execute_request
+      alias_method :original_execute_request, :execute_request
 
       def execute_request(net_http, raw_request)
         if HasOffersV3::Testing.enabled?
