@@ -47,7 +47,7 @@ module HasOffersV3
     private
 
       def deprecation(from, to)
-        warn "[DEPRECATION] `#{ name }.#{ from }` is deprecated. Please use `#{ name }.#{ to }` instead."
+        warn "\033[31m[DEPRECATION] `#{ name }.#{ from }` is deprecated. Please use `#{ name }.#{ to }` instead.\033[0m"
       end
 
       def new_http(uri)

@@ -1,3 +1,5 @@
+ENV['TEST'] = 'TEST'
+
 require 'hasoffersv3'
 require 'webmock/rspec'
 
@@ -40,8 +42,8 @@ def data
   body['response']['data']
 end
 
-def stub_call(method = :post, to_return = nil)
-  stub_request(method, url).to_return to_return || default_return
+def stub_call(method = :post, to_return = nil, custom_url = nil)
+  stub_request(method, custom_url || url).to_return to_return || default_return
 end
 
 def validate_call(response)
