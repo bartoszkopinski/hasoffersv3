@@ -1,6 +1,17 @@
-# Ruby wrapper for HasOffers APIv3
+### Overview 
 
-Gem provides wrapper around HasOffers API in version 3, [HasOffers APIv3 Documentation](http://developers.hasoffers.com/#/brand).
+[![Build status](https://api.travis-ci.org/HitFox/hasoffersv3.png?branch=master)](http://travis-ci.org/HitFox/hasoffersv3) 
+
+### Synopsis
+
+This gem provides a wrapper around HasOffers API in version 3, [HasOffers APIv3 Documentation](http://developers.hasoffers.com/#/brand).
+
+### Compatibility
+
+Supported ruby versions:
+
+*   1.9.3
+*   2.0
 
 ## Installation
 
