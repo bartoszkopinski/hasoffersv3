@@ -4,7 +4,7 @@ Gem provides wrapper around HasOffers API in version 3, [HasOffers APIv3 Documen
 
 ## Installation
 
-...
+    gem install hasoffersv3
 
 ## Usage
 

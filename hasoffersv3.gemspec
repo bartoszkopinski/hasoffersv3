@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.email         = ["ms@hitfox.com", "tr@hitfox.com"]
   s.summary       = %q{REST Client for the HasOffers API, version 3.}
   s.description   = %q{REST Client for the HasOffers API, version 3.}
+  s.license       = "MIT"
 
   s.files         = `git ls-files`.split($/)
   s.executables   = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -21,4 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport' # for to_param method
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'rspec'
+  s.add_development_dependency "bundler", "~> 1.3"
+  s.add_development_dependency "rake"
 end
