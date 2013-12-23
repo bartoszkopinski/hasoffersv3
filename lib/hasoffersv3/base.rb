@@ -41,7 +41,7 @@ module HasOffersV3
       end
 
       def target
-        name.split('::').last
+        name.split('::').drop(1).join('_')
       end
 
     private
