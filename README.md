@@ -15,14 +15,15 @@ Supported ruby versions:
 
 ## Installation
 
-    gem install hasoffersv3
+```ruby
+gem 'hasoffersv3', github: 'bartoszkopinski/hasoffersv3', branch: 'master'
+```
 
 ## Usage
 
 Basic usage:
 
 ```ruby
-
 HasOffersV3.configure do |c|
   c.network_id      = 'network-id'
   c.network_token   = 'network-token' # For Brand API
