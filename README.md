@@ -1,6 +1,6 @@
-### Overview 
+### Overview
 
-[![Build status](https://api.travis-ci.org/HitFox/hasoffersv3.png?branch=master)](http://travis-ci.org/HitFox/hasoffersv3) 
+[![Build status](https://api.travis-ci.org/HitFox/hasoffersv3.png?branch=master)](http://travis-ci.org/HitFox/hasoffersv3)
 
 ### Synopsis
 
@@ -22,7 +22,16 @@ Supported ruby versions:
 Basic usage:
 
 ```ruby
-HasOffersV3::ControllerName.snake_case_method_name
+
+HasOffersV3.configure do |c|
+  c.network_id      = 'network-id'
+  c.network_token   = 'network-token' # For Brand API
+  c.api_key         = 'api-key'       # For Affiliate API
+end
+
+# HasOffersV3::ApiName::ModelName.method_name(params)
+HasOffersV3::Affiliate::Offer.find_all
+HasOffersV3::Brand::Offer.find_all
 ```
 
 If HasOffers method does not take any parameters, then API also doesn't take them, otherwise it should be always a hash.
@@ -32,7 +41,7 @@ Naming is the same as in HasOffers documentation, also if it requires attributes
 Examples:
 
 ```ruby
-HasOffersV3::Affiliate.update_payment_method_wire affiliate_id: '877', data: []
+HasOffersV3::Brand::Affiliate.update_payment_method_wire affiliate_id: '877', data: []
 ```
 
 ## Testing
