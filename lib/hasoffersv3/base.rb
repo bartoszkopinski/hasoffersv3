@@ -41,7 +41,10 @@ module HasOffersV3
       end
 
       def target
-        name.split('::').drop(1).join('_')
+        @target ||= begin
+          api, model = name.split('::').drop(1)
+          api == 'Brand' ? model : "#{api}_#{model}"
+        end
       end
 
     private
@@ -85,7 +88,11 @@ module HasOffersV3
 
       def build_request_params(method, params)
         params['Method'] = method
-        params.merge NetworkId: HasOffersV3.configuration.network_id, NetworkToken: HasOffersV3.configuration.api_key
+        params.merge(
+             NetworkId: HasOffersV3.configuration.network_id,
+          NetworkToken: HasOffersV3.configuration.network_token,
+               api_key: HasOffersV3.configuration.api_key,
+        )
       end
     end
   end

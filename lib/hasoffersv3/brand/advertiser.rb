@@ -1,7 +1,11 @@
 module HasOffersV3
-  module Affiliate
-    class Offer < Base
+  module Brand
+    class Advertiser < Base
       class << self
+        def find_all_ids
+          post_request 'findAllIds', {}
+        end
+
         def find_all(params = {})
           post_request 'findAll', params
         end

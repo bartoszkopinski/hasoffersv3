@@ -1,6 +1,5 @@
-%w!base affiliate response conversion raw_log report configuration advertiser advertiser_user offer affiliate/offer!.each do |file|
-  require "hasoffersv3/#{file}"
-end
+require 'hasoffersv3/base'
+Dir.glob(File.join(File.dirname(__FILE__), './**/*.rb')).each{ |f| require(f) }
 
 module HasOffersV3
   class << self

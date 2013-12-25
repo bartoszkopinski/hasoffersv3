@@ -1,14 +1,9 @@
 module HasOffersV3
   module Affiliate
-    class Offer < Base
+    class Goal < Base
       class << self
         def find_all(params = {})
           post_request 'findAll', params
-        end
-
-        def find_by_id(params = {})
-          requires! params, [:id]
-          post_request 'findById', params
         end
       end
     end

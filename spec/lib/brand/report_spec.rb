@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe HasOffersV3::Report do
-  subject { HasOffersV3::Report }
+describe HasOffersV3::Brand::Report do
+  subject { described_class }
   let(:url)  { api_url 'Report' }
 
   describe '.get_conversions' do

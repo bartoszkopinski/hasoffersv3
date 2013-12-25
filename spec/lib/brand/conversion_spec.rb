@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe HasOffersV3::Conversion do
-  subject { HasOffersV3::Conversion }
+describe HasOffersV3::Brand::Conversion do
+  subject { described_class }
 
   let(:url)  { Regexp.new api_url('Conversion') }
 

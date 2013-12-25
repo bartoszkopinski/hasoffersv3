@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe HasOffersV3::AdvertiserUser do
-  subject { HasOffersV3::AdvertiserUser }
+describe HasOffersV3::Brand::AdvertiserUser do
+  subject { described_class }
 
   let(:url)  { api_url 'AdvertiserUser' }
 
